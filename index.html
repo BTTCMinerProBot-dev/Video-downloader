@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamSnap | Professional Video Downloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬇️</text></svg>">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-cloud-download-alt"></i>
+                <h1>Stream<span>Snap</span></h1>
+            </div>
+        <div class="nav-links">
+            <a href="#downloader" class="nav-link active"><i class="fas fa-download"></i> Downloader</a>
+            <a href="#telegram" class="nav-link"><i class="fab fa-telegram"></i> Telegram Bot</a>
+            <a href="#features" class="nav-link"><i class="fas fa-star"></i> Features</a>
+            <a href="#history" class="nav-link"><i class="fas fa-history"></i> History</a>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="btn-secondary"><i class="fas fa-question-circle"></i> Help</button>
+        </div>
+        
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main>
+    <!-- Downloader Section -->
+    <section class="section active" id="downloader">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-video"></i> Video Downloader</h2>
+                <p>Download videos from 50+ platforms in multiple formats</p>
+            </div>
+            
+            <div class="downloader-card">
+                <div class="platforms-grid">
+                    <div class="platform active">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-tiktok"></i>
+                        <span>TikTok</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-vimeo"></i>
+                        <span>Vimeo</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-reddit"></i>
+                        <span>Reddit</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fab fa-pinterest"></i>
+                        <span>Pinterest</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-link"></i>
+                        <span>Direct Link</span>
+                    </div>
+                </div>
+                
+                <div class="url-input-container">
+                    <div class="url-input-group">
+                        <i class="fas fa-link"></i>
+                        <input type="url" id="videoUrl" placeholder="Paste video URL here (e.g., https://www.youtube.com/watch?v=...)" autocomplete="off">
+                        <button class="btn-primary" id="analyzeBtn">
+                            <i class="fas fa-search"></i> Analyze
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        <i class="fas fa-info-circle"></i> Supported: YouTube, Facebook, Instagram, Twitter, TikTok, Vimeo, Reddit, Pinterest, Direct Links
+                    </div>
+                </div>
+                
+                <!-- Preview Section -->
+                <div class="preview-container" id="previewContainer">
+                    <div class="preview-placeholder">
+                        <i class="fas fa-film"></i>
+                        <p>Video information will appear here after analysis</p>
+                    </div>
+                    
+                    <div class="video-preview" id="videoPreview">
+                        <div class="preview-thumbnail">
+                            <img id="thumbnailImg" src="" alt="Video thumbnail">
+                            <div class="duration-badge" id="durationBadge"></div>
+                        </div>
+                        <div class="preview-details">
+                            <h3 id="videoTitle">Video Title</h3>
+                            <div class="preview-meta">
+                                <span><i class="fas fa-clock"></i> <span id="videoDuration">--:--</span></span>
+                                <span><i class="fas fa-expand-arrows-alt"></i> <span id="videoResolution">--</span></span>
+                                <span><i class="fas fa-database"></i> <span id="videoSize">-- MB</span></span>
+                            </div>
+                            <div class="preview-actions">
+                                <button class="btn-secondary" id="customNameBtn">
+                                    <i class="fas fa-edit"></i> Custom Name
+                                </button>
+                                <button class="btn-secondary" id="subtitlesBtn">
+                                    <i class="fas fa-closed-captioning"></i> Subtitles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Download Options -->
+                <div class="options-container" id="optionsContainer">
+                    <div class="options-tabs">
+                        <button class="option-tab active" data-format="video"><i class="fas fa-video"></i> Video</button>
+                        <button class="option-tab" data-format="audio"><i class="fas fa-music"></i> Audio</button>
+                    </div>
+                    
+                    <div class="options-content">
+                        <!-- Video Formats -->
+                        <div class="format-options active" id="videoOptions">
+                            <div class="format-header">
+                                <h4><i class="fas fa-file-video"></i> Video Formats</h4>
+                                <div class="format-filter">
+                                    <select id="resolutionFilter">
+                                        <option value="all">All Resolutions</option>
+                                        <option value="4K">4K</option>
+                                        <option value="1080p">1080p</option>
+                                        <option value="720p">720p</option>
+                                        <option value="480p">480p</option>
+                                        <option value="360p">360p</option>
+                                        <option value="240p">240p</option>
+                                        <option value="144p">144p</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="formats-grid" id="videoFormatsGrid">
+                                <!-- Video format options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Audio Formats -->
+                        <div class="format-options" id="audioOptions">
+                            <div class="format-header">
+                                <h4><i class="fas fa-file-audio"></i> Audio Formats</h4>
+                            </div>
+                            
+                            <div class="formats-grid" id="audioFormatsGrid">
+                                <!-- Audio format options will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Download Progress -->
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-header">
+                        <h4><i class="fas fa-cloud-download-alt"></i> Download Progress</h4>
+                        <span id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span id="progressStatus">Ready to download</span>
+                        <span id="progressSpeed">--</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Supported Platforms -->
+            <div class="supported-platforms">
+                <h3><i class="fas fa-check-circle"></i> Supported Platforms</h3>
+                <div class="platforms-list">
+                    <div class="platform-item">
+                        <i class="fab fa-youtube"></i>
+                        <span>YouTube</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-tiktok"></i>
+                        <span>TikTok</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-vimeo"></i>
+                        <span>Vimeo</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-reddit"></i>
+                        <span>Reddit</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fab fa-pinterest"></i>
+                        <span>Pinterest</span>
+                    </div>
+                    <div class="platform-item">
+                        <i class="fas fa-link"></i>
+                        <span>Direct Links</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Telegram Bot Section -->
+    <section class="section" id="telegram">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fab fa-telegram"></i> Telegram Bot</h2>
+                <p>Download videos directly through Telegram with inline buttons</p>
+            </div>
+            
+            <div class="telegram-container">
+                <div class="telegram-demo">
+                    <div class="telegram-chat">
+                        <div class="chat-header">
+                            <i class="fab fa-telegram"></i>
+                            <h3>StreamSnap Bot</h3>
+                            <span class="status">online</span>
+                        </div>
+                        
+                        <div class="chat-messages">
+                            <div class="message user">
+                                <div class="message-content">
+                                    https://youtu.be/example-video
+                                </div>
+                                <div class="message-time">10:01 AM</div>
+                            </div>
+                            
+                            <div class="message bot">
+                                <div class="message-content">
+                                    <div class="bot-response">
+                                        <div class="video-preview-small">
+                                            <img src="https://via.placeholder.com/80x45/3a3a3a/ffffff?text=Thumbnail" alt="Thumbnail">
+                                            <div class="video-info">
+                                                <h5>Example Video Title</h5>
+                                                <p>📊 720p • 🕐 5:30 • 💾 45 MB</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="inline-buttons">
+                                            <button class="inline-btn"><i class="fas fa-video"></i> 1080p</button>
+                                            <button class="inline-btn"><i class="fas fa-video"></i> 720p</button>
+                                            <button class="inline-btn"><i class="fas fa-video"></i> 480p</button>
+                                            <button class="inline-btn"><i class="fas fa-music"></i> MP3</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message-time">10:01 AM</div>
+                            </div>
+                            
+                            <div class="message bot">
+                                <div class="message-content">
+                                    <div class="bot-text">
+                                        Select your preferred format from the buttons above. You can also request specific resolutions with commands like <code>/download 720p</code>
+                                    </div>
+                                </div>
+                                <div class="message-time">10:02 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type /help for commands" disabled>
+                            <button><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="telegram-instructions">
+                    <h3><i class="fas fa-robot"></i> How to Use the Bot</h3>
+                    <div class="instructions-list">
+                        <div class="instruction-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Start the Bot</h4>
+                                <p>Open Telegram and search for <strong>@StreamSnapBot</strong> or click the button below.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Send Video URL</h4>
+                                <p>Paste any supported video link directly in the chat.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Choose Format</h4>
+                                <p>Select from inline buttons for different resolutions and formats.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Download</h4>
+                                <p>Get your video/audio file directly in Telegram.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="telegram-actions">
+                        <a href="https://t.me/StreamSnapBot" class="btn-telegram" target="_blank">
+                            <i class="fab fa-telegram"></i> Open in Telegram
+                        </a>
+                        <button class="btn-secondary">
+                            <i class="fas fa-code"></i> View Bot Commands
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Features</h2>
+                <p>Powerful tools for downloading and managing videos</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>High-Speed Downloads</h3>
+                    <p>Utilize our optimized servers for fast download speeds without limits.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Multiple Resolutions</h3>
+                    <p>Download in 144p to 4K quality depending on source availability.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-audio"></i>
+                    </div>
+                    <h3>Audio Extraction</h3>
+                    <p>Extract audio in MP3, AAC, WAV, or M4A format from any video.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-closed-captioning"></i>
+                    </div>
+                    <h3>Subtitles Support</h3>
+                    <p>Download subtitles in .srt format when available.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Custom Naming</h3>
+                    <p>Rename files before downloading for better organization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Download History</h3>
+                    <p>Access your recent downloads for quick re-downloading.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Fully responsive design that works perfectly on all devices.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>No malware, no intrusive ads, and strict privacy protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- History Section -->
+    <section class="section" id="history">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-history"></i> Recent Downloads</h2>
+                <p>Your download history is stored locally in your browser</p>
+            </div>
+            
+            <div class="history-container">
+                <div class="history-header">
+                    <div class="history-filter">
+                        <select id="historyFilter">
+                            <option value="all">All Downloads</option>
+                            <option value="video">Videos Only</option>
+                            <option value="audio">Audio Only</option>
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                        </select>
+                        <button class="btn-secondary" id="clearHistory">
+                            <i class="fas fa-trash"></i> Clear History
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="history-list" id="historyList">
+                    <!-- History items will be dynamically inserted here -->
+                    <div class="history-empty">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        <h3>No download history yet</h3>
+                        <p>Your downloaded videos will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Custom Name Modal -->
+    <div class="modal" id="customNameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Custom File Name</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Enter a custom name for your download file (without extension)</p>
+                <input type="text" id="customFileName" placeholder="my-video-file">
+                <div class="modal-actions">
+                    <button class="btn-secondary modal-close">Cancel</button>
+                    <button class="btn-primary" id="saveCustomName">Apply Name</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Subtitles Modal -->
+    <div class="modal" id="subtitlesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-closed-captioning"></i> Download Subtitles</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select subtitle languages to download (if available)</p>
+                <div class="subtitles-list" id="subtitlesList">
+                    <!-- Subtitle options will be dynamically inserted here -->
+                    <div class="no-subtitles">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>No subtitles available for this video</p>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary modal-close">Close</button>
+                    <button class="btn-primary" id="downloadSubtitles">Download Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <h2>Stream<span>Snap</span></h2>
+                </div>
+                <p>Professional video downloader for 50+ platforms. Fast, secure, and easy to use.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <a href="#downloader">Downloader</a>
+                    <a href="#telegram">Telegram Bot</a>
+                    <a href="#features">Features</a>
+                    <a href="#history">History</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Status</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">DMCA</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 StreamSnap. All rights reserved. This tool is for personal use only.</p>
+            <div class="monetag-notice">
+                <p>Ad-supported by <strong>Monetag</strong></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Ad Container (Monetag Integration) -->
+<div class="ad-container">
+    <div class="ad-label">
+        <i class="fas fa-ad"></i> Ad
+    </div>
+    <div id="monetag-ad"></div>
+</div>
+
+<!-- Toast Notifications -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Scripts will be added in JS file -->
+</body>
+</html>
